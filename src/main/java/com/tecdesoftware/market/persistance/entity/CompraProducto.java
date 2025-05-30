@@ -9,6 +9,7 @@ import jakarta.persistence.Table;
 @Table(name="compras_productos")
 public class CompraProducto {
 
+
     @EmbeddedId //Sale de la otra clase
     private CompraProductoPK id;
 
