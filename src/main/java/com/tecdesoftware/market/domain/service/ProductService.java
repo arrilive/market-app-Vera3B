@@ -12,8 +12,7 @@ import java.util.Optional;
 public class ProductService {
 
     @Autowired
-    private  ProductRepository productRepository;
-
+    private ProductRepository productRepository;
 
     public List<Product> getAll() {
         return productRepository.getAll();
@@ -32,13 +31,11 @@ public class ProductService {
     }
 
     public boolean delete(int productId) {
-        //Verificar si existe el producto
-        if(getProduct(productId).isPresent()) {
+        if (getProduct(productId).isPresent()) {
             productRepository.delete(productId);
             return true;
-        }  else {
-            return false;
         }
+        return false;
     }
 
 }

@@ -17,7 +17,7 @@ public class Categoria {
     private List<Producto> productos;
 
     private String descripcion;
-    private Boolean estado;
+    private String estado;
 
     public Integer getIdCategoria() {
         return idCategoria;
@@ -35,11 +35,11 @@ public class Categoria {
         this.descripcion = descripcion;
     }
 
-    public Boolean getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(Boolean estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 

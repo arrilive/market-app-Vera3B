@@ -6,7 +6,6 @@ import jakarta.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 
-//ESta llave es para crear la llave compuesta
 @Embeddable
 public class CompraProductoPK implements Serializable {
 
@@ -31,6 +30,8 @@ public class CompraProductoPK implements Serializable {
     public void setIdProducto(Integer idProducto) {
         this.idProducto = idProducto;
     }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof CompraProductoPK)) return false;

@@ -15,54 +15,54 @@ import java.util.Optional;
 @Repository
 public class ProductoRepository implements ProductRepository {
 
-    //Inyectado automáticamente: Spring crea el objeto por ti
     @Autowired
     private ProductoCrudRepository productoCrudRepository;
 
     @Autowired
     private ProductMapper productMapper;
 
-
     @Override
-    //Me va a dar todos los productos de mi BD
-    public List<Product> getAll(){
-        //Convirtiendo un iterable<t> a una lista de productos List<Producto>
-        List<Producto> productos = (List<Producto>) productoCrudRepository.findAll();
-        return productMapper.toProducts(productos);
+    public List<Product> getAll() {
+        return productMapper.toProducts((List<Producto>) productoCrudRepository.findAll());
     }
 
     @Override
-    //Obtiene los productos por categoria
-    public Optional<List<Product>> getByCategory(int categoryId){
-        List<Producto> productos = productoCrudRepository.findByIdCategoriaOrderByNombreAsc(categoryId);
-        return Optional.of(productMapper.toProducts(productos));
+    public Optional<List<Product>> getByCategory(int categoryId) {
+        return Optional.of(
+                productMapper.toProducts(
+                        productoCrudRepository.findByIdCategoriaOrderByNombreAsc(categoryId)
+                )
+        );
     }
 
     @Override
-    //Obtiene estado del producto
-    public Optional<List<Product>> getScarseProducts(int quantity){
+    public Optional<List<Product>> getScarseProducts(int quantity) {
         Optional<List<Producto>> productos = productoCrudRepository.findByCantidadStockLessThanAndEstado(quantity, true);
-        //No hay un mapper que convierta una lista de opcionales, se tiene que usar map
-         return productos.map(prods-> productMapper.toProducts(prods));
+        return productos.map(productMapper::toProducts);
+
+    }
+
+
+
+
+
+    @Override
+    public Optional<Product> getProduct(int productId) {
+        return productoCrudRepository
+                .findById(productId)
+                .map(productMapper::toProduct);
     }
 
     @Override
-    //Obtiene un producto dado el id
-    public Optional<Product> getProduct(int productId){
-        return productoCrudRepository.findById(productId).map (producto -> productMapper.toProduct(producto));
-    }
-
-    @Override
-    //Guarda un prducto
-    public Product save(Product product){
+    public Product save(Product product) {
         Producto producto = productMapper.toProducto(product);
         return productMapper.toProduct(productoCrudRepository.save(producto));
     }
 
     @Override
-    //Borrar un prodcuto
-    public void delete(int productId){
+    public void delete(int productId) {
         productoCrudRepository.deleteById(productId);
     }
 }
+
 

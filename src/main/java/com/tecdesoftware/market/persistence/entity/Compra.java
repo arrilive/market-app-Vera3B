@@ -14,29 +14,30 @@ public class Compra {
     @Id//Llave primaria
     //Hace el ID autoincremental
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="id_compra")
+
+    @Column(name = "id_compra")
     private Integer idCompra;
 
-    private String nombre;
-    @Column(name="id_cliente")
-    private Integer idCategoria;
+    @Column(name = "id_cliente")
+    private String idCliente;
 
     private LocalDateTime fecha;
 
-    @Column(name="medio_pago")
-    private Double medioPago;
+    @Column(name = "medio_pago")
+    private String medioPago;
+
+    private String comentario;
+
+    private String estado;
+
     //Relacion con la entidad cliente: Muchas compras a un cliente
     @ManyToOne
     // No quiero que se modifique la entidad cliente, solo relacionarla
     @JoinColumn (name="id_cliente", insertable=false, updatable=false)
     private Cliente cliente;
 
-    @OneToMany (mappedBy = "compra")
-    private List<CompraProducto> productos;
-
-    private Integer comentario;
-
-    private Boolean estado;
+    @OneToMany(mappedBy = "compra")
+    private List<CompraProducto> compraProductos;
 
     public Integer getIdCompra() {
         return idCompra;
@@ -46,20 +47,12 @@ public class Compra {
         this.idCompra = idCompra;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getIdCliente() {
+        return idCliente;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public Integer getIdCategoria() {
-        return idCategoria;
-    }
-
-    public void setIdCategoria(Integer idCategoria) {
-        this.idCategoria = idCategoria;
+    public void setIdCliente(String idCliente) {
+        this.idCliente = idCliente;
     }
 
     public LocalDateTime getFecha() {
@@ -70,27 +63,43 @@ public class Compra {
         this.fecha = fecha;
     }
 
-    public Double getMedioPago() {
+    public String getMedioPago() {
         return medioPago;
     }
 
-    public void setMedioPago(Double medioPago) {
+    public void setMedioPago(String medioPago) {
         this.medioPago = medioPago;
     }
 
-    public Integer getComentario() {
+    public String getComentario() {
         return comentario;
     }
 
-    public void setComentario(Integer comentario) {
+    public void setComentario(String comentario) {
         this.comentario = comentario;
     }
 
-    public Boolean getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(Boolean estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public List<CompraProducto> getCompraProductos() {
+        return compraProductos;
+    }
+
+    public void setCompraProductos(List<CompraProducto> compraProductos) {
+        this.compraProductos = compraProductos;
     }
 }
