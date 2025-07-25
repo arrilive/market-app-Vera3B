@@ -23,7 +23,7 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
-
+//Mapeando
     @GetMapping("/all")
     @Operation(
             summary = "Get all products",
