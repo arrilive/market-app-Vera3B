@@ -31,7 +31,14 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // Se desactiva CSRF para uso como API REST
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/swagger-ui/**", "/v3/**").permitAll() // Estas rutas no requieren autenticación
+                        .requestMatchers(
+                                "/auth/**",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-resources/**",
+                                "/webjars/**"
+                        ).permitAll()
+                        // Estas rutas no requieren autenticación
                         .anyRequest().authenticated() // Todo lo demás sí requiere JWT válido
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); // No hay sesiones
